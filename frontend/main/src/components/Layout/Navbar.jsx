@@ -12,6 +12,7 @@ import {
   Menu,
   X,
   LogOut,
+  Home,
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -24,6 +25,7 @@ const Navbar = () => {
   const location = useLocation();
 
   const navigation = [
+    {name: 'Home', href: '/', icon:Home},
     {name: 'Chat', href: '/chat', icon: MessageCircle},
     {name: 'Profile', href: '/profile', icon: User},
     {name: 'Ethical Hacking', href: '/hacking', icon: Shield},

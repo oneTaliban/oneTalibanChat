@@ -12,7 +12,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const {register, handleSubmit, formState: { errors }} = useForm();
-  // const { login } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,8 +40,7 @@ const Login = () => {
       // get device fingerprint before login
       // const fingerprint = await fingerprintDevice();
 
-      // const result  = await login(data.username, data.password) ; //TODO add fingerprint
-
+      const result  = await login(data) ; //TODO add fingerprint
       if (result.success) {
         setShowConfetti(true);
         triggerConfetti();

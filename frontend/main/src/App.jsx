@@ -18,9 +18,10 @@ import Donations from './pages/Donations';
 import Subscription from './pages/Subscription';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import Footer from './components/Layout/Footer';
+import Scanlines from './components/Ui/Scanlines';
+import MatrixBackground from './components/Ui/MatrixBackground';
 
 import './styles/App.css';
-
 
 
 function App() {
@@ -34,6 +35,8 @@ function App() {
             <ChatProvider>
               <Router>
                 {/* TODO visual effects */}
+                <MatrixBackground></MatrixBackground>
+                <Scanlines></Scanlines>
 
                 <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 dark:bg-gray-900 relative" >
                   <Navbar></Navbar>
@@ -47,13 +50,13 @@ function App() {
                           <Chat />
                         </ProtectedRoute>
                       }></Route>
-                      <Route path='/' element={
+                      <Route path='/profile' element={
                         <ProtectedRoute>
                           <Profile />
                         </ProtectedRoute>
                       }></Route>
                       <Route path='/hacking' element={<EthicalHacking />}></Route>
-                      <Route path='/donate' element={<Donations />}></Route>
+                      <Route path='/donations' element={<Donations />}></Route>
                       <Route path='/subscription' element={<Subscription />}></Route>
                     </Routes>
                   </main>

@@ -60,7 +60,8 @@ export const AuthProvider = ({children}) => {
         if (token) {
             try {
                 const response = await authAPI.getProfile();
-                dispatch({type: 'LOGIN_SUCCESS', payload: response.date});
+                console.log('response: ', response.data)
+                dispatch({type: 'LOGIN_SUCCESS', payload: response.data});
             } catch (error) {
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
@@ -77,7 +78,7 @@ export const AuthProvider = ({children}) => {
         try {
             const response = await authAPI.login(credentials);
             const { user, access, refresh } = response.data;
-            localStorage.setItem('access_token', acces);
+            localStorage.setItem('access_token', access);
             localStorage.setItem('refresh_token', refresh);
             localStorage.setItem('user', JSON.stringify(user));
 
@@ -109,6 +110,12 @@ export const AuthProvider = ({children}) => {
         }
     };
 
+    const updateProfile = async (userData) => {
+        
+        console.log('updating user profile:',userData);
+        
+    };
+
     const logout = async () => {
         try {
             await authAPI.logout();
@@ -134,6 +141,7 @@ export const AuthProvider = ({children}) => {
             login,
             register,
             logout,
+            updateProfile,
             clearError,
         }}
         >

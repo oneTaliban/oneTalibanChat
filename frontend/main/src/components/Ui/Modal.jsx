@@ -36,12 +36,12 @@ const Modal = ({
             initial={{ opacity:0, scale: 0.9, y: 20}}
             animate={{opacity: 1, scale: 1, y:0}}
             exit={{ opacity: 0, scale: 0.9, y: 20}}
-            transition={{type: 'spring', damping: 30, stiffness: 30}}
+            transition={{type: 'spring', damping: 30, stiffness: 300}}
             className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-full ${sizes[size]} bg-gray-900 rounded-2xl shadow-2xl border border-gray-700`}
           >
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-700">
-              <h2 className="text-xl font-bold text-white">{title}</h2>
+              <h2 className="text-xl font-bold text-gradient">{title}</h2>
               <button 
                 className="p-2 hover:bg-gray-800 rounded-lg transition-colors text-gray-400 hover:text-white"
                 onClick={onClose}

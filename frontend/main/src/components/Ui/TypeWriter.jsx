@@ -74,10 +74,10 @@ const TypeWriter = () => {
   }, [])
 
   return (
-    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+    <div className="fixed top-17 left-1/2 transform -translate-x-1/2 z-50">
       <h1
         ref={textRef}
-        className="text-3xl font-bold text-white bg-black/50 px-6 py-3 rounded-full border border-purple-500 shadow-lg shadow-purple-500/50 backdrop-blur-sm">
+        className="text-3xl font-bold text-gradient bg-black/50 px-6 py-3 rounded-full border border-purple-500 shadow-lg shadow-purple-500/50 backdrop-blur-sm">
           {/* {text will be populated by js} */}
       </h1>
     </div>

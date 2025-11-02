@@ -63,7 +63,7 @@ export const WebSocketProvider = ({children}) => {
 export const useWebSocket = () => {
   const context = useContext(WebSocketContext);
   if (!context) {
-    throw new Error("useWebSocket must be within a WebSocketProvidr");
+    throw new Error("useWebSocket must be within a WebSocketProvider");
   }
   return context;
 };

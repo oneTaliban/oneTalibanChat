@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import {gsap} from 'gsap';
+import {  hackingDemosJson } from '../utils/hacks';
 
 const EthicalHacking = () => {
   const [activeDemo, setActiveDemo] = useState(null);
 
-  const hackingDemos = [
+  const hackingDemos = hackingDemosJson;
+  
+  [
     {
       id: 1,
       title: "SQL injection Demo",

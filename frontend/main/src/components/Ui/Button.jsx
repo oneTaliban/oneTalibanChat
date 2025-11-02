@@ -12,7 +12,7 @@ const Button = ({
   ...props
 
 }) => {
-  const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseStyles = 'inline-flex items-center justify-center cursor-pointer font-semibold rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variants = {
     primary: 'bg-purple-600 hover:bg-purple-700 text-white focus:ring-purple-500 shadow-lg hover: shadow-xl',
@@ -21,6 +21,8 @@ const Button = ({
     danger: 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500',
     hacker: 'bg-terminal-bg hover:bg-green-900 text-matrix-green border border-matrix-green focus:ring-matrix-green shadow-hacker hover:shadow-lg',
     ghost: 'bg-transparent hover:bg-white/10 text-white border border-white/20 focus:ring-white/50',
+    premium: 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-yellow-900 focus:ring-yellow-500 shadow-lg hover:shadow-xl',
+    enterprise: 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:from-green-600 hover:to-emerald-600 text-green-900 focus:ring-green-500 shadow-lg hover:shadow-xl',
   };
 
   const sizes = {
@@ -39,7 +41,7 @@ const Button = ({
       whileTap={{scale: disabled ? 1 : 0.98}}
       className={classes}
       disabled={disabled || loading}
-      onClick={onclick}
+      onClick={onClick}
       {...props}
     >
       {loading && (
