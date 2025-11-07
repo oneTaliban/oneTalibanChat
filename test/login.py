@@ -1,9 +1,12 @@
 import requests
 
 def makeRequest(url):
+
+    username = str(input("Enter your username : "))
+    password = str(input("Enter your password : "))
     data = {
-        'username': 'AdminKevo',
-        'password': 'Moneey62',
+        'username': username,
+        'password': password,
     }
     response = requests.post(url, data=data)
     return response

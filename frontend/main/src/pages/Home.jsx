@@ -1,6 +1,7 @@
 import React from 'react';
 import TypeWriter from '../components/Ui/TypeWriter';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { MessageCircle, Shield, Zap, Users, User } from 'lucide-react';
 
 const Home = () => {
@@ -113,7 +114,11 @@ const Home = () => {
             whileTap={{scale: 0.95}}
             className='bg-gradient-to-r from-purple-600.to-pink-600.text-white px-8 py-3 font-semibold hover:from-purple-700 hover:to-pink-700 transition-all'
           >
-            Create Account
+            <Link
+              to="/register"
+            >
+              Create Account
+            </Link>
           </motion.button>
         </motion.div>
       </section>

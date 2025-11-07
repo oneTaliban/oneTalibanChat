@@ -9,3 +9,4 @@ cryptography
 django-user-agents
 ua-parser
 djangorestframework-simplejwt
+django-user-agents

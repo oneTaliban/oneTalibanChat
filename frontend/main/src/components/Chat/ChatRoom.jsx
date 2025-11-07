@@ -123,12 +123,12 @@ const ChatRoom = () => {
       </div>
 
       {/* Message area */}
-      <div className="flex-1 overflow-hidden bg-whatsapp-chat-bg">
+      <div className="flex-1 overflow-y-auto min-h-0 bg-hacker-blue/5 backdrop-blur-md bg-whatsapp-chat-bg max-h-screen">
         <MessageList></MessageList>
       </div>
 
       {/* Typing indicators */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {typingUsers.length > 0 && (
           <motion.div
             initial={{ opacity: 0, height: 0}}
@@ -141,7 +141,7 @@ const ChatRoom = () => {
             ))}
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
       {/* Chat Input */}
       <ChatInput></ChatInput>

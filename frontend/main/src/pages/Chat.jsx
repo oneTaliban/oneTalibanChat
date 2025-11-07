@@ -123,7 +123,7 @@ const Chat = () => {
         
 
         {/* User info // Already have implemented in chatsidebar*/}
-        <div className="p-4 border-t border-gray-700">
+        {/* <div className="p-4 border-t border-gray-700">
           <div className="flex items-center space-x-3">
             <div className="relative">
               <img 
@@ -138,11 +138,11 @@ const Chat = () => {
               <p className="text-green-400 text-sm">Online See Profile</p>
             </div>
           </div>
-        </div>
+        </div> */}
       </motion.div>
 
       {/* Main chat area */}
-      <div className="flex-1 flex flex-col lg:ml-0">
+      <div className="flex-1 flex  flex-col min-h-0 lg:ml-0">
         <ChatRoom></ChatRoom>
       </div>
 

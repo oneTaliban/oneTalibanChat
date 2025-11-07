@@ -15,8 +15,8 @@ const MessageList = () => {
   };
 
   useEffect(() => {
-    // scrollToBottom();
-  }, [ /*messages, typingUsers */]);
+    scrollToBottom();
+  }, [ messages, typingUsers ]);
   
   if (!activeRoom) {
     return (
@@ -39,9 +39,9 @@ const MessageList = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col bg-whatsapp-chat-bg overflow-hidden"> 
+    // <div className="flex flex-col min-h-0 overflow-hidden"> 
+      <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-2">
       {/* Message container */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-2">
         <AnimatePresence>
           {messages.map((message, index) => (
             <Message
@@ -52,15 +52,15 @@ const MessageList = () => {
           ))}
 
           {/* typing indicators */}
-          {/* disabled it since i am using for chat input */}
-          {/* {typingUsers.map((user) => (
+          {/*un disabled it since i am not using for chat room */}
+          {typingUsers.map((user) => (
             <TypingIndicator key={user.id} user={user}></TypingIndicator>
-          ))} */}
+          ))}
         </AnimatePresence>
         
         <div ref={messageEndRef}></div>
       </div>
-    </div>
+    // </div>
   );
 };
 

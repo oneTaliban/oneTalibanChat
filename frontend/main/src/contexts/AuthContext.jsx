@@ -106,7 +106,7 @@ export const AuthProvider = ({children}) => {
         } catch (error) {
             const message = error.response?.data?.error || 'Registration failed';
             dispatch({ type: 'LOGIN_FAILURE', payload: message});
-            return { success: true, error: message};
+            return { success: false, error: message};
         }
     };
 
