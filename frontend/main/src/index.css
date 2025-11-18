@@ -28,4 +28,14 @@
     --color-hacker-red: #ff003c;
     --color-terminal-bg: #0a0a0a;
     --color-terminal-header: #1a1a1a;
+
+
+    /* --color-hacker-green: rgba(0, 255, 0, 0.7); */
+    /* --color-hacker-red: rgba(255, 0, 0, 0.7); */
+    /* --color-hacker-blue: rgba(0, 191, 255, 0.7);         */
+    --color-hacker-dark: #0a0a0a;
+    /* --color-terminal-bg: rgba(0, 0, 0, 0.85);         */
+    --color-terminal-border: rgba(50, 50, 50, 0.8);
+
 }
+

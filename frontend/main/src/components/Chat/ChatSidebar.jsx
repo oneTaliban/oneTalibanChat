@@ -10,7 +10,7 @@ const ChatSidebar = ({ roomCreated}) => {
   const { user } = useAuth();
   const [ searchTerm, setSearchTerm ] = useState('');
 
-  let filteredRooms = rooms.filter(room => 
+  let filteredRooms = () => rooms.filter(room => 
     room.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
     room.participants.some(p => 
       p.username.toLowerCase().includes(searchTerm.toLowerCase())

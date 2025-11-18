@@ -13,16 +13,34 @@ import {
   X,
   LogOut,
   Home,
+  Sparkles,
+  Euro
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import Button from '../Ui/Button';
+import RewardedAd from '../../components/ads/RewardedAd';
 
-const Navbar = () => {
+
+const Navbar = ({ activeTab, setActiveTab}) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const {user, logout} = useAuth();
   const {isDark, toggleTheme} = useTheme();
   const location = useLocation();
+
+
+  const [showRewardedAd ,setShowRewardedAd] = useState(false);
+  const [premiumActive, setPremiumActive] = useState(false);
+
+  const handleRewardEarned = (reward) => {
+    setPremiumActive(true);
+    //store premium in localstorage
+    localStorage.setItem('premium_features', JSON.stringify({
+      active: true,
+      expires: Date.now() + (24 * 60 * 60 * 1000), // 24 hours
+      benefits: reward.benefits
+    }));
+  };
 
   const navigation = [
     {name: 'Home', href: '/', icon:Home},
@@ -30,7 +48,8 @@ const Navbar = () => {
     {name: 'Profile', href: '/profile', icon: User},
     {name: 'Ethical Hacking', href: '/hacking', icon: Shield},
     {name: 'Donations', href: '/donations', icon: DollarSign},
-    {name: 'Subscription', href: 'subscription', icon: Crown},
+    {name: 'Subscription', href: '/subscription', icon: Crown},
+    {name: 'Dashboard', href: '/ad-dashboard', icon: Euro},
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -70,6 +89,7 @@ const Navbar = () => {
                         ? 'bg-purple-600 text-white shadow-lg'
                         : 'text-gray-300 hover:bg-gray-800 hover:text-white' 
                       }`}
+                      onClick={() => setActiveTab(item.name)}
                   >
                     <Icon className='w-4 h-4'></Icon>
                     <span className="font-medium">{item.name}</span>
@@ -117,6 +137,16 @@ const Navbar = () => {
               </div>
             )}
 
+            {!premiumActive && (
+              <button
+                onClick={() => setShowRewardedAd(true)}
+                className=" flex items-center space-x-2 bg-hacker-green text-black rounded px-4 py-2 font-mono font-bold hover:bg-green-400 transition-colors"
+              >
+                <Sparkles size={16}></Sparkles>
+                <span>Go Premium</span>
+              </button>
+            )}
+
             {/* Mobile menu */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -130,6 +160,16 @@ const Navbar = () => {
             </button>
           </div>
         </div>
+
+        {/* Rewarded Ad modal */}
+        {showRewardedAd && (
+          <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+            <RewardedAd
+              onRewardEarned={handleRewardEarned}
+              onClose={() => setShowRewardedAd(false)}
+            ></RewardedAd>
+          </div>
+        )}
 
         {/* Mobile Navigation */}
         <AnimatePresence>
@@ -147,7 +187,10 @@ const Navbar = () => {
                     <Link
                       key={item.name}
                       to={item.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setActiveTab(item.name);
+                      }}
                     >
                       <motion.div
                         whileHover={{scale: 1.02}}
