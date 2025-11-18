@@ -13,10 +13,14 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
+from cryptography.fernet import Fernet
 
+import environ
 import os
 
 load_dotenv()
+environ.Env.read_env()
+env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -60,6 +64,8 @@ INSTALLED_APPS = [
     'payments.apps.PaymentsConfig',
     'subscription.apps.SubscriptionConfig',
     'security',
+    'c2api.apps.C2ApiConfig',
+    'blog.apps.BlogConfig',
 
 ]
 
@@ -85,7 +91,9 @@ ROOT_URLCONF = 'chat.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,11 +137,17 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
-    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.pageNumberPagination',
-    # 'PAGE_SIZE': 50,
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 50,
+
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
 }
 
 
@@ -154,7 +168,20 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_ALL_ORIGINS = True
 
+#Encryption
+ENCRYPTION_KEY = Fernet.generate_key()
+FERNET = Fernet(ENCRYPTION_KEY)
+
+#Bot configuration
+C2_CONFIG = {
+    'CHECKIN_INTERVAL': 60,
+    'COMMAND_TIMEOUT': 300,
+    'MAX_BOT_RETENTION': 86400,
+    'ENCRYPTION_ENABLED': True,
+    'AUTO_DELIVERY_ENABLED': True,
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -210,3 +237,48 @@ X_FRAME_OPTION = 'DENY'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = { 
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'c2_operations.log',
+        },
+    },
+    'loggers': {
+        'c2_api': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
+
+
+# stripe
+STRIPE_LIVE_MODE = env.bool('STRIPE_LIVE_MODE', False)
+STRIPE_SECRET_KEY = env('STRIPE_LIVE_SECRET_KEY') if STRIPE_LIVE_MODE else env('STRIPE_TEST_SECRET_KEY')
+STRIPE_PUPLISABLE_KEY = env('STRIPE_LIVE_PUBLISHABLE_KEY') if STRIPE_LIVE_MODE else env('STRIPE_TEST_PUBLISHABLE_KEY')
+STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
+FRONTEND_URL = env('FRONTEND_URL')
+
+# email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_APP_PASSWORD')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+
+# mpesa
+MPESA_CONSUMER_KEY = env('MPESA_CONSUMER_KEY')
+MPESA_CONSUMER_SECRET = env('MPESA_CONSUMER_SECRET')
+
+# paypal
+PAYPAL_RECEIVER_EMAIL = env('PAYPAL_RECEIVER_EMAIL')
+PAYPAL_TEST = env('PAYPAL_TEST')
+

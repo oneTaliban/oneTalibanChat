@@ -10,7 +10,7 @@ from .serializers import DonationSerializer, SubscriptionPlanSerializer, UserSub
 
 import stripe
 
-# stripe.api_key = settings.STRIPE_SECRET_KEY
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class DonationListCreateView(generics.ListCreateAPIView):
     serializer_class = DonationSerializer

@@ -16,6 +16,7 @@ class Donation(models.Model):
         ('pending', 'Pending'),
         ('completed', 'Completed'),
         ('failed', 'Failed'),
+        ('cancelled', 'Cancelled'),
         ('refund', 'Refund'),
     )
 

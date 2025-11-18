@@ -9,6 +9,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=20, blank=True, null=True)
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=False)
     bio = models.TextField(max_length=500, blank=True)
+    is_verified = models.BooleanField(default=False)
     is_online = models.BooleanField(default=False)
     last_seen = models.DateTimeField(auto_now=True)
 
@@ -43,3 +44,13 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
+    
+class LoginHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='login_history')
+    ip_address = models.GenericIPAddressField()
+    user_agent = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    success = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['-timestamp']
