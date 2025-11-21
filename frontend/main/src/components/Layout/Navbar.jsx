@@ -13,6 +13,7 @@ import {
   X,
   LogOut,
   Home,
+  FileText,
   Sparkles,
   Euro
 } from 'lucide-react';
@@ -46,6 +47,7 @@ const Navbar = ({ activeTab, setActiveTab}) => {
     {name: 'Home', href: '/', icon:Home},
     {name: 'Chat', href: '/chat', icon: MessageCircle},
     {name: 'Profile', href: '/profile', icon: User},
+    {name: 'Blog', href: '/blog', icon: FileText},
     {name: 'Ethical Hacking', href: '/hacking', icon: Shield},
     {name: 'Donations', href: '/donations', icon: DollarSign},
     {name: 'Subscription', href: '/subscription', icon: Crown},
@@ -76,7 +78,7 @@ const Navbar = ({ activeTab, setActiveTab}) => {
           </motion.div>
 
           {/* desktop navigation */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden lg:flex items-center space-x-1">
             {navigation.map((item) => {
               const Icon = item.icon;
               return (
@@ -150,7 +152,7 @@ const Navbar = ({ activeTab, setActiveTab}) => {
             {/* Mobile menu */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className='md:hidden p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors'
+              className='lg:hidden p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors'
             >
               {isMobileMenuOpen ? (
                 <X className='w-5 h-5'></X>
@@ -178,7 +180,7 @@ const Navbar = ({ activeTab, setActiveTab}) => {
               initial={{opacity: 0, height: 0}}
               animate={{opacity: 1, height: 'auto'}}
               exit={{opacity:0, height: 0}}
-              className='md:hidden border-t border-gray-700'
+              className='lg:hidden border-t border-gray-700'
             >
               <div className="py-4 space-y-4">
                 {navigation.map((item) => {

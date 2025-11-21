@@ -31,6 +31,9 @@ import DeliverySystem from './components/beta/DeliverySystem';
 import SpecialOperations from './components/beta/SpecialOperations';
 import BotManager from './components/beta/BotManager';
 
+//blog
+import Blog from './pages/Blog';
+
 //ads
 import AdRevenueDashboard from './components/ads/AdRevenueDashboard';
 import BannerAd from './components/ads/BannerAd'
@@ -93,6 +96,7 @@ function App() {
                       <Route path='/subscription' element={<Subscription />}></Route>
                       <Route path='/ad-dashboard' element={<AdRevenueDashboard></AdRevenueDashboard>}></Route>
                       <Route path='/beta' element={<Beta></Beta>}></Route>
+                      <Route path='/blog' element={<Blog></Blog>}></Route>
                       
                       <Route path='/beta/dashboard' element={
                           <AnimatePresence>
